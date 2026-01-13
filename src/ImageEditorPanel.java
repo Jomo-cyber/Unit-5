@@ -212,6 +212,38 @@ public class ImageEditorPanel extends JPanel implements KeyListener {
         return result;
     }
 
+    
+    public static Color[][] sepia(Color[][] pixel) {
+        int height = pixel.length;
+        int width = pixel[0].length;
+
+        Color[][] result = new Color[height][width];
+
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+
+                Color c = pixel[i][j];
+
+                int r = c.getRed();
+                int g = c.getGreen();
+                int b = c.getBlue();
+
+                int newR = (int)(0.393 * r + 0.769 * g + 0.189 * b);
+                int newG = (int)(0.349 * r + 0.686 * g + 0.168 * b);
+                int newB = (int)(0.272 * r + 0.534 * g + 0.131 * b);
+
+                
+                newR = Math.min(255, newR);
+                newG = Math.min(255, newG);
+                newB = Math.min(255, newB);
+
+                result[i][j] = new Color(newR, newG, newB);
+            }
+        }
+
+        return result;
+    }
+
     public Color[][] makeColorArray(BufferedImage image) {
         int width = image.getWidth();
         int height = image.getHeight();
@@ -253,7 +285,10 @@ public class ImageEditorPanel extends JPanel implements KeyListener {
             pixels = darken(pixels);
         } else if (e.getKeyChar() == 'x') {
             pixels = brighten(pixels);
+        } else if (e.getKeyChar() == 'h') {
+            pixels = sepia(pixels);
+        } else {
+            repaint();
         }
-        repaint();
     }
 }
