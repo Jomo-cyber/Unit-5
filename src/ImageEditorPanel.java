@@ -226,66 +226,34 @@ public class ImageEditorPanel extends JPanel implements KeyListener {
     }
 
     public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-            System.out.println("The left arrow was pressed");
-        }
         if (e.getKeyCode() == KeyEvent.VK_UP) {
             pixels = flipVertical(pixels);
-            repaint();
-            
         }
         if (e.getKeyCode() == KeyEvent.VK_DOWN) {
             pixels = flipHorizontal(pixels);
-            repaint();
-            
         }
+        repaint();
     }
+
     public void keyReleased(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_LEFT) {
             // call event handling methods
         }
     }
+
     public void keyTyped(KeyEvent e) {
-        BufferedImage imageIn = null;
-            try {
-                imageIn = ImageIO.read(new File("MichaelJordan.jpg"));
-            } catch (IOException i) {
-                System.out.println(i);
-                System.exit(1);
-            }
-       
-
-
 
         if (e.getKeyChar() == 'g') {
-            System.out.println("g");
-            
             pixels = greyScale(pixels);
-            repaint();
-        }
-        if (e.getKeyChar() == 'h') {
-            pixels = makeColorArray(imageIn);
-            repaint();
-        }
-        if (e.getKeyChar() == 'f') {
-            System.out.println("f");
-            
+        }  else if (e.getKeyChar() == 'f') {
             pixels = blur(pixels);
-            repaint();
-        }
-        if (e.getKeyChar() == 'd') {
-            System.out.println("d");
-            
+        } else if (e.getKeyChar() == 'd') {
             pixels = posterize(pixels);
-            repaint();
-        }
-        if (e.getKeyChar() == 'z') {
+        } else if (e.getKeyChar() == 'z') {
             pixels = darken(pixels);
-            repaint();
-        }
-        if (e.getKeyChar() == 'x') {
+        } else if (e.getKeyChar() == 'x') {
             pixels = brighten(pixels);
-            repaint();
         }
+        repaint();
     }
 }
